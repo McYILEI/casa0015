@@ -223,7 +223,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
               _buildCountSection(),
               _buildControlButtons(),
               _buildBottomButtons(),
-              const SizedBox(height: 16),
+              const SizedBox(height: 8),
             ],
           ),
         ),
@@ -233,7 +233,7 @@ class _TrainingScreenState extends State<TrainingScreen> {
 
   Widget _buildCameraSection() {
     return Expanded(
-      flex: 5,
+      flex: 7,
       child: Stack(
         fit: StackFit.expand,
         children: [
@@ -270,38 +270,53 @@ class _TrainingScreenState extends State<TrainingScreen> {
       );
     }
 
+    // previewSize is reported in landscape (e.g. 1280×960).
+    // Swap width/height to get the correct portrait dimensions,
+    // then use FittedBox(cover) so the preview fills the area
+    // without any stretching or distortion.
+    final previewSize = _cameraController!.value.previewSize!;
+    final portraitW = previewSize.height;
+    final portraitH = previewSize.width;
+
     return ClipRect(
-      child: Transform.scale(
-        scaleX: -1.0, // Mirror horizontally for front camera
-        child: CameraPreview(_cameraController!),
+      child: SizedBox.expand(
+        child: FittedBox(
+          fit: BoxFit.cover,
+          child: SizedBox(
+            width: portraitW,
+            height: portraitH,
+            child: Transform.scale(
+              scaleX: -1.0, // Mirror horizontally for front camera
+              child: CameraPreview(_cameraController!),
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildCountSection() {
-    return Expanded(
-      flex: 3,
-      child: Container(
-        color: AppColors.background,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('Current Set',
-                style: TextStyle(color: AppColors.textDim, fontSize: 12)),
-            CountDisplay(count: _currentSetCount),
-            Text(
-              'Total: $_totalReps reps${_setsDisplay.isNotEmpty ? ' ($_setsDisplay)' : ''}',
-              style: const TextStyle(color: AppColors.textDim, fontSize: 13),
-            ),
-          ],
-        ),
+    return Container(
+      color: AppColors.background,
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text('Current Set',
+              style: TextStyle(color: AppColors.textDim, fontSize: 11)),
+          CountDisplay(count: _currentSetCount),
+          Text(
+            'Total: $_totalReps reps${_setsDisplay.isNotEmpty ? ' ($_setsDisplay)' : ''}',
+            style: const TextStyle(color: AppColors.textDim, fontSize: 12),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildControlButtons() {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
