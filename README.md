@@ -6,7 +6,7 @@ A Flutter app that uses your phone's front camera and Google ML Kit pose detecti
 
 ## Problem Statement
 
-Counting pull-ups while hanging from a bar is harder than it sounds: your hands are occupied, your phone is out of reach, and manual counters interrupt the workout. Dedicated gym equipment is expensive and not portable. Pull-Up Tracker solves this by turning any phone into a hands-free AI spotter — mount it, start the session, and let computer vision do the counting.
+Performing pull-ups usually requires both hands to remain engaged, which makes it difficult to interact with a phone during exercise. As a result, manual counting is inconvenient and can interrupt the flow of a workout. Dedicated gym equipment is often expensive and not portable, while wearable fitness devices may be forgotten when rushing out or preparing for training. By contrast, a phone is almost always with the user. Pull-Up Tracker is designed for this situation: it turns a smartphone into a hands-free AI workout assistant, allowing the user to mount the device, start exercising, and let computer vision automatically count each pull-up in real time.
 
 ---
 
@@ -116,7 +116,3 @@ This project was built incrementally across multiple commits:
 | `75ef15b` | Added GPS location tagging to sessions |
 
 ---
-
-## License
-
-MIT
